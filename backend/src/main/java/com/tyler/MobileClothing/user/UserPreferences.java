@@ -14,4 +14,5 @@ import java.util.List;
 public class UserPreferences {
     private String units;
     private List<String> favoriteTags;
+
 }

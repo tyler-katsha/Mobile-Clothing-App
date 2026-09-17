@@ -45,6 +45,7 @@ public class Outfit {
     private int wearCount = 0;
 
     private Instant lastWornAt;
+
     @CreatedDate
     private Instant createdAt;
 

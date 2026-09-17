@@ -1,7 +1,9 @@
 package com.tyler.MobileClothing.user;
 
 import com.tyler.MobileClothing.enums.AuthProvider;
+import com.tyler.MobileClothing.enums.Gender;
 import com.tyler.MobileClothing.enums.Role;
+import com.tyler.MobileClothing.enums.SubscriptionTier;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,11 +39,20 @@ public class User {
     @Builder.Default
     private Set<Role> role = Set.of(Role.USER);
 
+    @Builder.Default
+    private SubscriptionTier subscriptionTier = SubscriptionTier.FREE;
+
     private UserPreferences userPreferences;
+    private Gender gender;
+    private String avatarUrl;
+    private String city;
 
     @CreatedDate
     private Instant createdAt;
 
     @LastModifiedDate
     private Instant updatedAt;
+
+    @Builder.Default
+    private boolean isEnabled = false;
 }

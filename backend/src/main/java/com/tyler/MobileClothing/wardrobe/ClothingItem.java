@@ -51,6 +51,9 @@ public class ClothingItem {
 
     @Builder.Default
     private boolean archived = false;
+    
+    @Builder.Default
+    private boolean favorite = false;
 
     @CreatedDate
     private Instant createdAt;

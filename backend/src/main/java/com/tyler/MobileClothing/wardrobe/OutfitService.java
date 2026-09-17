@@ -1,6 +1,6 @@
 package com.tyler.MobileClothing.wardrobe;
 
-import com.tyler.MobileClothing.dtos.CreateOutfitRequest;
+import com.tyler.MobileClothing.dtos.OutfitRequest;
 import com.tyler.MobileClothing.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class OutfitService {
     private final OutfitRepository outfitRepository;
     private final ClothingItemRepository clothingItemRepository;
 
-    public Outfit createOutfit(CreateOutfitRequest request){
+    public Outfit createOutfit(OutfitRequest request){
         if(request.getClothingItemIds() == null || request.getClothingItemIds().isEmpty()){
             throw new IllegalArgumentException("An outfit must contain at least one clothing item");
         }
@@ -50,6 +50,29 @@ public class OutfitService {
         return outfitRepository.save(outfit);
     }
 
+    public Outfit updateOutfit(OutfitRequest request){
+
+        if(request.getClothingItemIds() == null || request.getClothingItemIds().isEmpty()){
+            throw new IllegalArgumentException("An outfit must contain at least one clothing item");
+        }
+
+        List<ClothingItem> items = clothingItemRepository.findAllById(request.getClothingItemIds());
+
+        if(items.size() != request.getClothingItemIds().size()){
+            throw new IllegalArgumentException("One or more clothing items do not exist");
+        }
+
+        boolean unauthorized = items.stream().anyMatch(item -> !item.getUserId().equals(request.getUserId()) || item.isArchived());
+
+        if(unauthorized){
+            throw new SecurityException("Cannot add garments from another user's wardrobe or archived items");
+        }
+
+        var outfit = outfitRepository.findById(request.getOutfitId())
+                .orElseThrow(() -> new ResourceNotFoundException("Outfit not found"));
+        return outfitRepository.save(outfit);
+    }
+
     public List<Outfit> getUserByOutfits(String userId){
         return outfitRepository.findByUserId(userId);
     }
@@ -79,6 +102,7 @@ public class OutfitService {
 
         outfit.setFavorite(!outfit.isFavorite());
         outfit.setUpdatedAt(Instant.now());
+
         return outfitRepository.save(outfit);
     }
 

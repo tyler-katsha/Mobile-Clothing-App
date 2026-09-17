@@ -13,8 +13,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateOutfitRequest {
+public class OutfitRequest {
 
+    private String outfitId;
     private String userId;
     private String name;
     private String description;
