@@ -3,7 +3,6 @@ import Section from '@/components/ui/Section';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useSettingsData} from "@/app/utils/useSettingsData";
 import {useTheme} from '@/hooks/useTheme';
-import {useTranslation} from "react-i18next";
 
 export default function SettingsScreen(){
     const SETTINGS_SECTIONS = useSettingsData();

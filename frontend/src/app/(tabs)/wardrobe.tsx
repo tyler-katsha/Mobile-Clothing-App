@@ -58,7 +58,7 @@ export default function WardrobeScreen() {
             <View style={styles.headerContainer}>
                 <View style={styles.titleRow}>
                     <Text style={[styles.title, { color: colors.text as string }]}>
-                        {t('wardrobe.title', 'My Wardrobe')}
+                        {t('wardrobeRoom.title')}
                     </Text>
                     <View style={styles.headerActions}>
                         <Pressable style={[styles.actionBtn, { backgroundColor: colors.surface as string, borderColor: colors.border as string }]}>
@@ -76,7 +76,7 @@ export default function WardrobeScreen() {
                     <Ionicons name="search" size={20} color={isDarkMode ? '#aaa' : '#666'} />
                     <TextInput
                         style={[styles.searchInput, { color: colors.text as string }]}
-                        placeholder={t('wardrobe.search', 'Search clothes...')}
+                        placeholder={t('wardrobeRoom.searchPlaceholder')}
                         placeholderTextColor={isDarkMode ? '#aaa' : '#666'}
                         value={searchQuery}
                         onChangeText={setSearchQuery}
@@ -87,9 +87,10 @@ export default function WardrobeScreen() {
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
                 {categoryOrder.map((category) => (
+
                     <View key={category} style={styles.categorySection}>
                         <View style={styles.categoryHeader}>
-                            <Text style={[styles.categoryTitle, { color: colors.text as string }]}>{category}</Text>
+                            <Text style={[styles.categoryTitle, { color: colors.text as string }]}>{t(`wardrobeRoom.${category.toLowerCase()}`)}</Text>
                             <View style={[styles.underline, { backgroundColor: colors.border as string }]} />
                         </View>
 
@@ -139,7 +140,7 @@ export default function WardrobeScreen() {
             <Modal visible={modalVisible} animationType='slide' transparent={true}>
                 <View style={styles.modalOverlay}>
                     <View style={[styles.modalContent, { backgroundColor: colors.surface as string }]}>
-                        <Text style={[styles.modalTitle, { color: colors.text as string }]}>Add New Clothing Item</Text>
+                        <Text style={[styles.modalTitle, { color: colors.text as string }]}>{t("wardrobeRoom.addItem")}</Text>
 
                         <CameraUploadButton onImageSelected={handleImageSelected} />
                         <GalleryUploadButton onImageSelected={handleImageSelected} />
@@ -148,7 +149,7 @@ export default function WardrobeScreen() {
                             style={styles.cancelButton}
                             onPress={() => setModalVisible(false)}
                         >
-                            <Text style={{ color: colors.danger as string, fontWeight: '600', fontSize: 16 }}>Cancel</Text>
+                            <Text style={{ color: colors.danger as string, fontWeight: '600', fontSize: 16 }}>{t("wardrobeRoom.cancel")}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

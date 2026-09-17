@@ -3,7 +3,6 @@ import { useTheme } from '@/hooks/useTheme';
 import {useEffect, useState} from 'react';
 import {isLiquidGlassAvailable} from "expo-glass-effect";
 import {getSecureItem, saveSecureItem} from "@/app/utils/secureStorage";
-import {appVersion} from "@/app/API/version";
 import {useTranslation} from "react-i18next";
 
 export const hasGlassSupport = isLiquidGlassAvailable();

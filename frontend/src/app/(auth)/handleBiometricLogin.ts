@@ -1,13 +1,33 @@
 import * as LocalAuthentication from 'expo-local-authentication';
-import {Alert} from 'react-native';
+import {Alert, Linking} from 'react-native';
 import {useRouter} from "expo-router";
+import {getSecureItem} from "@/app/utils/secureStorage";
 
 export const useBiometricAuth = () => {
 
     const router = useRouter();
+    const key = 'isFaceId';
     const handleBiometric = async () => {
+
+        const storedFaceId = await getSecureItem(key);
+
+        if(storedFaceId === 'false'){
+            Alert.alert("Authentication Required",
+                "Please enable Face ID or Biometrics in your device settings to continue.",
+                [
+                    {
+                        text: "Cancel",
+                        style: "cancel"
+                    },
+                    {
+                        text: "App Settings",
+                        onPress: () => router.replace('/(tabs)/settings')
+                    }
+                ]);
+            return;
+        }
         try{
-            // checks if the user has a faceid or touchid
+            // checks if the user has a faceid or touchId
             const hasHardware = await LocalAuthentication.hasHardwareAsync();
 
             if(!hasHardware){
@@ -32,8 +52,8 @@ export const useBiometricAuth = () => {
 
             if(authResult.success){
                 console.log('Success! The user is who they say they are.');
-                router.push('/(tabs)');
-                return false;
+                router.replace('/(tabs)');
+                return true;
             } else{
                 console.log('Authentication failed or canceled');
                 return false;

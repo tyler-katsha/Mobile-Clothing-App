@@ -10,6 +10,7 @@ export default function AuthSheet(){
     const { handleBiometric } = useBiometricAuth();
     const router = useRouter();
     const { t } = useTranslation();
+
     const oauthLogin = (provider:string) => {
         console.log(`Starting ${provider} login`);
     }

@@ -37,6 +37,14 @@ export const en = {
         wardrobeRoom: {
             add: '+ Add',
             text: 'Find your best outfit',
+            searchPlaceholder: 'Search clothes...',
+            title: 'My Wardrobe',
+            dress: 'Dresses',
+            tops: 'Tops',
+            pants: 'Pants',
+            accessories: 'Accessories',
+            addItem: 'Add New Clothing Item',
+            cancel: 'cancel',
         },
         settings: {
             account: 'ACCOUNT & SYNC',
